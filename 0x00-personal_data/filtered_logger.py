@@ -1,4 +1,4 @@
-#!/usr/bin/python3
+#!/usr/bin/env python3
 """
 This "filtered-logger.py" module provides one function:
     filter_datum(fields, redaction, message, separator)
@@ -10,7 +10,7 @@ import re
 
 
 def filter_datum(fields: List[str], redaction: str,
-        message: str, separator: str) -> str:
+                 message: str, separator: str) -> str:
     """
     Searches for specific fields in a given message
      and redacts them
@@ -26,7 +26,7 @@ def filter_datum(fields: List[str], redaction: str,
     Returns:
         str: the message with sensitive data redacted
     """
-    pattern: str = r"(?<={})({})=.*?{}".format(separator,
-            ("|".join(fields)), separator)
+    pattern: str = r"(?<={})({})=.*?{}".format(
+        separator, ("|".join(fields)), separator)
     match: str = r"\1={}{}".format(redaction, separator)
     return re.sub(pattern, match, message)
