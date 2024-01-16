@@ -1,6 +1,7 @@
 #!/usr/bin/env python3
 """ Provides a Basic Authentication class
 """
+from typing import Tuple
 from .auth import Auth
 from base64 import b64decode
 
@@ -44,3 +45,22 @@ class BasicAuth(Auth):
             except Exception:
                 pass
         return None
+
+    def extract_user_credentials(
+            self, decoded_base64_authorization_header: str
+            ) -> Tuple[str, str]:
+        """
+        Retrieves the email and password from the decoded
+         auth header
+
+        Args:
+            decoded_base64_authorization_header (str): contains
+             the email and password as a colon-separated string
+
+        Returns:
+            Tuple[str, str]: email and password
+        """
+        if type(decoded_base64_authorization_header) == str:
+            if ":" in decoded_base64_authorization_header:
+                return decoded_base64_authorization_header.split(":")
+        return None, None
