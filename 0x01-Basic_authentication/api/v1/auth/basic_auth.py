@@ -88,3 +88,21 @@ class BasicAuth(Auth):
                     (users[0].is_valid_password(user_pwd)):
                 return users[0]
         return None
+
+    def current_user(self, request=None) -> TypeVar('User'):
+        """
+        Retrieves the User from a given request with credentials
+         in the auth header
+
+        Args:
+            request (request, optional): the request whose
+             user is required. Defaults to None.
+
+        Returns:
+            _type_: the User, or None if not authed
+        """
+        auth_header = self.authorization_header(request)
+        b64_auth_cred = self.extract_base64_authorization_header(auth_header)
+        auth_cred = self.decode_base64_authorization_header(b64_auth_cred)
+        email, pwd = self.extract_user_credentials(auth_cred)
+        return self.user_object_from_credentials(email, pwd)
