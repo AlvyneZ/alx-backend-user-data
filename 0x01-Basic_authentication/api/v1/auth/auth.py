@@ -8,11 +8,6 @@ from flask import request
 class Auth:
     """Provides authentication services
     """
-    def __init__():
-        """Empty initialization function
-        """
-        pass
-
     def require_auth(
             self, path: str, excluded_paths: List[str]) -> bool:
         """
