@@ -39,6 +39,10 @@ def forbidden(error) -> str:
 
 @app.before_request
 def authenticate():
+    """
+    Authenticates all incoming requests handled by app
+     except those in exempt
+    """
     if auth:
         exempt = [
             '/api/v1/status/',
