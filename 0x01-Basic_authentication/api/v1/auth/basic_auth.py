@@ -2,6 +2,7 @@
 """ Provides a Basic Authentication class
 """
 from .auth import Auth
+from base64 import b64decode
 
 
 class BasicAuth(Auth):
@@ -22,4 +23,24 @@ class BasicAuth(Auth):
         if type(authorization_header) == str:
             if authorization_header[:6] == "Basic ":
                 return authorization_header[6:]
+        return None
+
+    def decode_base64_authorization_header(
+            self, base64_authorization_header: str) -> str:
+        """Decodes the base64 auth header
+
+        Args:
+            base64_authorization_header (str): to be decoded
+
+        Returns:
+            str: decoded auth header
+        """
+        if type(base64_authorization_header) == str:
+            try:
+                return b64decode(
+                    base64_authorization_header,
+                    validate=True
+                ).decode("utf-8")
+            except Exception:
+                pass
         return None
