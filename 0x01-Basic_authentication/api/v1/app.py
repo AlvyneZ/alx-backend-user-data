@@ -14,6 +14,11 @@ app = Flask(__name__)
 app.register_blueprint(app_views)
 CORS(app, resources={r"/api/v1/*": {"origins": "*"}})
 auth = None
+auth_type = getenv("AUTH_TYPE", "auth")
+if auth_type == "auth":
+    auth = Auth()
+elif auth_type == "basic_auth":
+    auth = BasicAuth()
 
 
 @app.errorhandler(404)
@@ -59,9 +64,4 @@ def authenticate():
 if __name__ == "__main__":
     host = getenv("API_HOST", "0.0.0.0")
     port = getenv("API_PORT", "5000")
-    auth_type = getenv("AUTH_TYPE", "auth")
-    if auth_type == "auth":
-        auth = Auth()
-    elif auth_type == "basic_auth":
-        auth = BasicAuth()
     app.run(host=host, port=port)
