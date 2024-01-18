@@ -21,7 +21,7 @@ class SessionExpAuth(SessionAuth):
         except ValueError:
             self.session_duration = 0
 
-    def create_session(self, user_id: str =None) -> str:
+    def create_session(self, user_id: str = None) -> str:
         """Creates a session ID for a given User ID
 
         Args:
