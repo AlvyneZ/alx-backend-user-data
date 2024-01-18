@@ -42,7 +42,15 @@ class SessionAuth(Auth):
         return self.user_id_by_session_id.get(session_id, None)
 
     def current_user(self, request=None) -> TypeVar('User'):
-        """Retrieves the user associated with the request.
+        """
+        Retrieves the logged in User from a given request
+
+        Args:
+            request (request, optional): the request whose
+             user is required. Defaults to None.
+
+        Returns:
+            User: the User, or None if not logged in
         """
         session_id = self.session_cookie(request)
         user_id = self.user_id_for_session_id(session_id)

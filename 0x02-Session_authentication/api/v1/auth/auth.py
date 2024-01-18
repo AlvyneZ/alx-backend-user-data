@@ -63,11 +63,22 @@ class Auth:
              user is required. Defaults to None.
 
         Returns:
-            _type_: the User, or None if not logged in
+            User: the User, or None if not logged in
         """
         return None
 
-    def session_cookie(self, request=None):
+    def session_cookie(self, request=None) -> str:
+        """
+        Retrieves the cookie containing the session ID from
+         a request
+
+        Args:
+            request (request, optional): The request whose
+             session ID is required. Defaults to None.
+
+        Returns:
+            str: The value of the Session ID cookie
+        """
         if request is None:
             return None
         cookie_name = getenv("SESSION_NAME")
