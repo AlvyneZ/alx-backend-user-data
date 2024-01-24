@@ -78,3 +78,12 @@ print("New Password: {}".format(
 )
 
 print("====================")
+
+"""
+Testing the _hash_password method in auth
+"""
+from auth import _hash_password
+
+print(_hash_password("Hello Holberton"))
+
+print("====================")
