@@ -60,7 +60,16 @@ print("====================")
 """
 Testing the create_session method in auth
 """
-print(auth.create_session(email))
+session_id = auth.create_session(email)
+print(session_id)
 print(auth.create_session("unknown@email.com"))
+
+print("====================")
+
+"""
+Testing the create_session method in auth
+"""
+rtrvd_user = auth.get_user_from_session_id(session_id)
+print(rtrvd_user.email)
 
 print("====================")
