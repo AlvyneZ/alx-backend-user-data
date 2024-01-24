@@ -2,12 +2,13 @@
 """
 This "app.py" file Provides a basic flask app
 """
-from flask import Flask, jsonify, request, abort
+from flask import Flask, jsonify, request, abort, redirect
 from auth import Auth
 
 
 app = Flask(__name__)
 AUTH = Auth()
+SESS_ID_COOKIE = "session_id"
 
 
 @app.route("/", methods=["GET"], strict_slashes=False)
@@ -74,8 +75,27 @@ def login() -> str:
         "email": email,
         "message": "logged in"
     })
-    res.set_cookie("session_id", sessiond_id)
+    res.set_cookie(SESS_ID_COOKIE, sessiond_id)
     return res
+
+
+@app.route("/sessions", methods=["DELETE"], strict_slashes=False)
+def logout() -> str:
+    """DELETE /sessions
+    Endpoint for Logging out a user
+    Cookies:
+      - session_id
+
+    Returns:
+        - redirect to "/"
+        - 403 if user does not exist
+    """
+    session_id = request.cookies.get(SESS_ID_COOKIE)
+    logged_in_user = AUTH.get_user_from_session_id(session_id)
+    if logged_in_user is None:
+        abort(403)
+    AUTH.destroy_session(logged_in_user.id)
+    return redirect("/")
 
 
 if __name__ == "__main__":
