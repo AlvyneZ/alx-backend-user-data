@@ -36,3 +36,14 @@ except ValueError as err:
     print("could not create a new user: {}".format(err))
 
 print("====================")
+
+"""
+Testing the valid_login method in auth
+"""
+print(auth.valid_login(email, password))
+
+print(auth.valid_login(email, "WrongPwd"))
+
+print(auth.valid_login("unknown@email", password))
+
+print("====================")

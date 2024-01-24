@@ -2,7 +2,7 @@
 """
 This "auth.py" file Provides the authentication services
 """
-from bcrypt import hashpw, gensalt
+from bcrypt import hashpw, gensalt, checkpw
 from sqlalchemy.orm.exc import NoResultFound
 
 from db import DB
@@ -33,4 +33,15 @@ class Auth:
             )
         raise ValueError(
             "User {} already exists".format(email)
+        )
+
+    def valid_login(self, email: str, password: str) -> bool:
+        """Validates login credentials
+        """
+        try:
+            user = self._db.find_user_by(email=email)
+        except NoResultFound:
+            return False
+        return checkpw(
+            password.encode("utf-8"), user.hashed_password
         )
