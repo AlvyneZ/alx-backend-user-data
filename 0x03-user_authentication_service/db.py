@@ -46,16 +46,16 @@ class DB:
     def find_user_by(self, **kwargs) -> User:
         """Searches for a User by the keyword arguments provided
         """
-        fields = []
+        colOps = []
         for key, value in kwargs.items():
             if hasattr(User, key):
-                fields.append(
+                colOps.append(
                     getattr(User, key).__eq__(value)
                 )
             else:
                 raise InvalidRequestError()
         result = self._session.query(User).filter(
-            *(field for field in fields)
+            *(columnOperator for columnOperator in colOps)
         ).first()
         if result is None:
             raise NoResultFound()
