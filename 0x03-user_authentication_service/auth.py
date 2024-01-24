@@ -85,7 +85,7 @@ class Auth:
             pass
 
     def get_reset_password_token(self, email: str) -> str:
-        """Deletes a user's active session for loggin out
+        """Creates a reset password token for a user
         """
         try:
             user = self._db.find_user_by(email=email)
@@ -95,3 +95,16 @@ class Auth:
             user.id, reset_token=_generate_uuid()
         )
         return user.reset_token
+
+    def update_password(self, reset_token: str, password:str) -> None:
+        """Updates a user's password if the reset token matches
+        """
+        try:
+            user = self._db.find_user_by(reset_token=reset_token)
+        except NoResultFound:
+            raise ValueError()
+        self._db.update_user(
+            user.id,
+            reset_token=None,
+            hashed_password=_hash_password(password)
+        )
