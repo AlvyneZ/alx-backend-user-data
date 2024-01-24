@@ -47,3 +47,20 @@ print(auth.valid_login(email, "WrongPwd"))
 print(auth.valid_login("unknown@email", password))
 
 print("====================")
+
+"""
+Testing the _generate_uuid method in auth
+"""
+from auth import _generate_uuid
+
+print(_generate_uuid())
+
+print("====================")
+
+"""
+Testing the create_session method in auth
+"""
+print(auth.create_session(email))
+print(auth.create_session("unknown@email.com"))
+
+print("====================")
