@@ -61,3 +61,20 @@ except InvalidRequestError:
     print("Invalid")
 
 print("====================")
+
+"""
+Testing the update_user method in db
+"""
+print("Old Password: {}".format(user_1.hashed_password))
+
+try:
+    my_db.update_user(user_1.id, hashed_password='NewPwd')
+    print("Password updated")
+except ValueError:
+    print("Error")
+
+print("New Password: {}".format(
+    my_db.find_user_by(id=user_1.id).hashed_password)
+)
+
+print("====================")
