@@ -71,5 +71,15 @@ Testing the create_session method in auth
 """
 rtrvd_user = auth.get_user_from_session_id(session_id)
 print(rtrvd_user.email)
+print(auth.get_user_from_session_id("Non-existent"))
+
+print("====================")
+
+"""
+Testing the destroy_session method in auth
+"""
+auth.destroy_session(rtrvd_user.id)
+print(rtrvd_user.session_id)
+print(auth.destroy_session("Non-existent"))
 
 print("====================")
