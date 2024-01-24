@@ -1,7 +1,7 @@
 #!/usr/bin/env python3
 """
-This "test.py" file provides code for testing
- the code implemented in this project
+This "test_db.py" file provides code for testing
+ the DB code implemented in this project
 """
 
 """
@@ -76,14 +76,5 @@ except ValueError:
 print("New Password: {}".format(
     my_db.find_user_by(id=user_1.id).hashed_password)
 )
-
-print("====================")
-
-"""
-Testing the _hash_password method in auth
-"""
-from auth import _hash_password
-
-print(_hash_password("Hello Holberton"))
 
 print("====================")
