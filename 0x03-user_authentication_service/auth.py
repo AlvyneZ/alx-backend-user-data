@@ -4,6 +4,7 @@ This "auth.py" file Provides the authentication services
 """
 from bcrypt import hashpw, gensalt, checkpw
 from sqlalchemy.orm.exc import NoResultFound
+from uuid import uuid4
 
 from db import DB
 from user import User
@@ -13,6 +14,12 @@ def _hash_password(password: str) -> bytes:
     """Hashes a password
     """
     return hashpw(password.encode("utf-8"), gensalt())
+
+
+def _generate_uuid() -> str:
+    """Generates a unique id
+    """
+    return str(uuid4())
 
 
 class Auth:
